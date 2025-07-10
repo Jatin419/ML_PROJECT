@@ -14,3 +14,8 @@ logging.basicConfig(
     level = logging.INFO,
 )
 
+
+if __name__ == "__main__":
+    logging.info("Logging has started!yehhh")
+    print(f"Logs are being written to: {LOG_FILE_PATH}")
+ 
