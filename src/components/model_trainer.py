@@ -21,11 +21,11 @@ from src.utils import save_object,evaluate_models
 
 @dataclass
 class ModelTrainerConfig:
-    trained_model_file_path=os.path.join("artifacts","model.pkl")
+    trained_model_file_path = os.path.join("artifacts","model.pkl")
 
 class ModelTrainer:
     def __init__(self):
-        self.model_trainer_config=ModelTrainerConfig()
+        self.model_trainer_config = ModelTrainerConfig()
 
 
     def initiate_model_trainer(self,train_array,test_array):
@@ -46,7 +46,7 @@ class ModelTrainer:
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
-            parameter={
+            parameter = {
                 "Decision Tree": {
                     'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
                     # 'splitter':['best','random'],
@@ -84,7 +84,7 @@ class ModelTrainer:
                 
             }
 
-            model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
+            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
                                              models=models,params=parameter)
             
             ## To get best model score from dict
@@ -102,11 +102,11 @@ class ModelTrainer:
             logging.info(f"Best found model on both training and testing dataset")
 
             save_object(
-                file_path=self.model_trainer_config.trained_model_file_path,
-                obj=best_model
+                file_path = self.model_trainer_config.trained_model_file_path,
+                obj = best_model
             )
 
-            predicted=best_model.predict(X_test)
+            predicted = best_model.predict(X_test)
 
             r2_square = r2_score(y_test, predicted)
             return r2_square
